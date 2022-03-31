@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="map_stu_int_in_request:war">
+    <output-path>$PROJECT_DIR$/map_stu_int_in_request/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>map_stu_int_in_request</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="map_stu_int_in_request-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="map_stu_int_in_request:war exploded" />
+    </root>
+  </artifact>
+</component>

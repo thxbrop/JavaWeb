@@ -1,0 +1,3 @@
+# Project exclude paths
+/application_in_servlet/target/
+/map_stu_int_in_request/target/
