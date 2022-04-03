@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Online Exam Management System/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Online Exam Management System/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/application_in_servlet/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/application_in_servlet/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/map_stu_int_in_request/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/map_stu_int_in_request/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parameter_value/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/parameter_value/src/main/resources" charset="UTF-8" />
   </component>
 </project>

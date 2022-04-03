@@ -3,16 +3,19 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/application_in_servlet" />
     <file type="web" url="file://$PROJECT_DIR$/map_stu_int_in_request" />
+    <file type="web" url="file://$PROJECT_DIR$/Online Exam Management System" />
+    <file type="web" url="file://$PROJECT_DIR$/parameter_value" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/application_in_servlet/pom.xml" />
         <option value="$PROJECT_DIR$/map_stu_int_in_request/pom.xml" />
+        <option value="$PROJECT_DIR$/Online Exam Management System/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

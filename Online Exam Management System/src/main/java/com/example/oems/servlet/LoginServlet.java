@@ -1,18 +1,17 @@
-package com.example.application_in_servlet.servlet;
+package com.example.oems.servlet;
 
-import com.example.application_in_servlet.Result;
-import com.example.application_in_servlet.entity.User;
-import com.example.application_in_servlet.repository.UserRepository;
+import com.example.oems.Result;
+import com.example.oems.entity.User;
+import com.example.oems.repository.UserRepository;
+import com.example.oems.util.CookieUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -38,16 +37,9 @@ public class LoginServlet extends HttpServlet {
         if (result.message != null) writer.append(result.message);
         if (result.t != null) {
             // TODO: 2022/3/27 登录成功
-            Cookie emailCookie = new Cookie("email", email);
-            emailCookie.setPath("/");
-            emailCookie.setMaxAge(60 * 60 * 24 * 30);
-            Cookie passwordCookie = new Cookie("password", password);
-            passwordCookie.setPath("/");
-            passwordCookie.setMaxAge(60 * 60 * 24 * 30);
-            response.addCookie(emailCookie);
-            response.addCookie(passwordCookie);
+            CookieUtil.saveCookie(response, "email", email, 60 * 60 * 24 * 7, "/");
+            CookieUtil.saveCookie(response, "password", password, 60 * 60 * 24 * 7, "/");
             writer.append("success");
-            System.out.println(Arrays.toString(request.getCookies()));
         }
     }
 }

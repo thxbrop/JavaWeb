@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="application_in_servlet" />
         <module name="map_stu_int_in_request" />
+        <module name="Online Exam Management System" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="application_in_servlet" target="1.8" />
+      <module name="application_in_servlet" target="10" />
       <module name="map_stu_int_in_request" target="1.8" />
+      <module name="Online Exam Management System" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
