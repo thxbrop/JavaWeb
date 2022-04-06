@@ -3,7 +3,6 @@
 <%@ page import="com.example.oems.repository.UserRepository" %>
 <%@ page import="com.example.oems.entity.User" %>
 <%@ page import="com.example.oems.Result" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
