@@ -40,7 +40,7 @@ public class UserRepository {
             return new Result<>("Email and password must not be empty");
         List<User> list = dao.getByEmail(email);
         if (list.isEmpty()) {
-            User user = new User(email, password, username);
+            User user = new User(email, password, username, User.ROLE_DEFAULT);
             dao.insert(user);
             return new Result<>(user);
         }
@@ -88,5 +88,21 @@ public class UserRepository {
 
     public List<User> getAll() {
         return dao.getAll();
+    }
+
+    public Result<User> update(String email, String username, String password, Integer role) {
+        if (StringUtil.isNullOrEmpty(email)) {
+            return new Result<>("Email required");
+        }
+        if (!StringUtil.isNullOrEmpty(username)) {
+            dao.updateUsername(email, username);
+        }
+        if (!StringUtil.isNullOrEmpty(password)) {
+            dao.updatePassword(email, password);
+        }
+        if (role != null) {
+            dao.updateRole(email, role);
+        }
+        return getByEmail(email);
     }
 }

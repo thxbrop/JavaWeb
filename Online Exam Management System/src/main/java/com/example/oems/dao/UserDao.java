@@ -18,10 +18,11 @@ public class UserDao implements BaseDao<User> {
 
     @Override
     public void insert(User user) {
-        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO user (email, username, password) VALUES (?,?,?)")) {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO user (email, username, password,role) VALUES (?,?,?,?)")) {
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getUsername());
             statement.setString(3, user.getPassword());
+            statement.setInt(4, user.getRole());
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,6 +39,36 @@ public class UserDao implements BaseDao<User> {
         }
     }
 
+    public void updateUsername(String email, String username) {
+        try (PreparedStatement statement = connection.prepareStatement("UPDATE user SET username=? WHERE email = ?")) {
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePassword(String email, String password) {
+        try (PreparedStatement statement = connection.prepareStatement("UPDATE user SET password=? WHERE email = ?")) {
+            statement.setString(1, password);
+            statement.setString(2, email);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateRole(String email, int role) {
+        try (PreparedStatement statement = connection.prepareStatement("UPDATE user SET role=? WHERE email = ?")) {
+            statement.setInt(1, role);
+            statement.setString(2, email);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public User getById(int id) {
         User user = null;
@@ -49,7 +80,8 @@ public class UserDao implements BaseDao<User> {
                         resultSet.getInt("id"),
                         resultSet.getString("email"),
                         resultSet.getString("password"),
-                        resultSet.getString("username")
+                        resultSet.getString("username"),
+                        resultSet.getInt("role")
                 );
             }
         } catch (SQLException e) {
@@ -74,7 +106,8 @@ public class UserDao implements BaseDao<User> {
                         resultSet.getInt("id"),
                         resultSet.getString("email"),
                         resultSet.getString("password"),
-                        resultSet.getString("username")
+                        resultSet.getString("username"),
+                        resultSet.getInt("role")
                 ));
             }
         } catch (SQLException e) {
@@ -93,7 +126,8 @@ public class UserDao implements BaseDao<User> {
                         resultSet.getInt("id"),
                         resultSet.getString("email"),
                         resultSet.getString("password"),
-                        resultSet.getString("username")
+                        resultSet.getString("username"),
+                        resultSet.getInt("role")
                 ));
             }
         } catch (SQLException e) {

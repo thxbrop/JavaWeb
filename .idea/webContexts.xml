@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/Online Exam Management System/src/main/webapp/html/manager.jsp" value="file://$PROJECT_DIR$/Online Exam Management System/src/main/webapp/html" />
+        <entry key="file://$PROJECT_DIR$/Online Exam Management System/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/Online Exam Management System/src/main/webapp" />
+      </map>
+    </option>
+  </component>
+</project>

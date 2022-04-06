@@ -1,11 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.example.oems.util.StringUtil" %>
 <%@ page import="com.example.oems.util.CookieUtil" %>
 <%@ page import="com.example.oems.repository.UserRepository" %>
 <%@ page import="com.example.oems.entity.User" %>
 <%@ page import="com.example.oems.Result" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.function.Consumer" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -18,71 +16,44 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
     </head>
+
+    <%
+        String email = CookieUtil.getCookie(request, "email");
+        String password = CookieUtil.getCookie(request, "password");
+        Result<User> result = UserRepository.getInstance().getByEmail(email);
+    %>
+
     <body class="bg-dark">
-        <header>
-            <div class="navbar navbar-light bg-light shadow-sm">
-                <div class="container">
-                    <a href="#" class="navbar-brand d-flex align-items-center">
-                        <strong>线上考试管理系统</strong>
-                    </a>
-                    <div class="align-content-end">
-                        <%
-                            String email = CookieUtil.getCookie(request, "email");
-                            String password = CookieUtil.getCookie(request, "password");
-                            Result<User> result = UserRepository.getInstance().getByEmail(email);
-                            if (result.t != null && result.t.getPassword().equals(password)) {
-                        %>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/html/manager.jsp">个人中心</a>
-                        <%
-                        } else {
-                        %>
-                        <button class="btn btn-primary" id="register" type="button" data-bs-target="#model-register"
-                                data-bs-toggle="modal">注册
-                        </button>
-                        <button class="btn btn-secondary" id="login" type="button" data-bs-target="#model-login"
-                                data-bs-toggle="modal">登录
-                        </button>
-                        <%
-                            }
-                        %>
-                    </div>
+        <header class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+            <div class="container">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">主页</a>
+                    </li>
+                    <%if (result.t != null && result.t.getRole() == User.ROLE_DEFAULT) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">考试系统</a>
+                    </li>
+                    <%} else if (result.t != null && result.t.getRole() == User.ROLE_ADMIN) {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="html/manage.jsp">管理系统</a>
+                    </li>
+                    <%}%>
+                </ul>
+                <div class="align-content-end">
+                    <%if (result.t != null && result.t.getPassword().equals(password)) {%>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/html/proxy.jsp">个人中心</a>
+                    <%} else {%>
+                    <button class="btn btn-primary" id="register" type="button" data-bs-target="#model-register"
+                            data-bs-toggle="modal">注册
+                    </button>
+                    <button class="btn btn-secondary" id="login" type="button" data-bs-target="#model-login"
+                            data-bs-toggle="modal">登录
+                    </button>
+                    <%}%>
                 </div>
             </div>
         </header>
-
-        <div class="container py-5 col-6">
-            <table class="table table-bordered table-light table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Password</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%
-                    UserRepository repository = UserRepository.getInstance();
-                    List<User> list = repository.getAll();
-                    for (User user : list) {
-                %>
-                <tr>
-                    <td scope="row"><%=user.getId()%>
-                    </td>
-                    <td><%=user.getEmail()%>
-                    </td>
-                    <td><%=user.getUsername()%>
-                    </td>
-                    <td><%=user.getPassword()%>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
-
-                </tbody>
-            </table>
-        </div>
 
         <div class="modal fade" id="model-register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
