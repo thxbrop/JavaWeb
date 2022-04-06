@@ -147,7 +147,7 @@
         $("#proxy-save").click(function () {
             const email = $("#proxy-email").val()
             const username = $("#proxy-username").val()
-            const proxy = $("#flexRadioDefault1:checked") ? 1 : 2
+            const proxy = $("input:radio:checked").val()
             saveProxy(email, username, proxy)
         })
         $("#proxy-logoff").click(function () {
