@@ -39,6 +39,15 @@ public class UserDao implements BaseDao<User> {
         }
     }
 
+    public void deleteByEmail(String email) {
+        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM user WHERE email = ?")) {
+            statement.setString(1, email);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void updateUsername(String email, String username) {
         try (PreparedStatement statement = connection.prepareStatement("UPDATE user SET username=? WHERE email = ?")) {
             statement.setString(1, username);

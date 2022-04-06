@@ -141,12 +141,7 @@
         toast("未登录")
         <%}%>
         $("#logout").click(function () {
-            $.get(
-                "${pageContext.request.contextPath}/logout",
-                function () {
-                    location.replace("${pageContext.request.contextPath}/index.jsp")
-                }
-            )
+            logout()
         })
 
         $("#proxy-save").click(function () {
@@ -176,11 +171,22 @@
             )
         }
 
+        function logout() {
+            $.get(
+                "${pageContext.request.contextPath}/logout",
+                function () {
+                    location.replace("${pageContext.request.contextPath}/index.jsp")
+                }
+            )
+        }
+
         function logoff(email) {
             $.get(
-                "${pageContext.request.contextPath}/proxy",
-                function (data) {
-                    //TODO
+                "${pageContext.request.contextPath}/logoff", {
+                    "email": email
+                },
+                function () {
+                    logout()
                 }
             )
         }

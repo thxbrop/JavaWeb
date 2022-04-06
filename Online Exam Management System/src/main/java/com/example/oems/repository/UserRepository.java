@@ -90,6 +90,11 @@ public class UserRepository {
         return dao.getAll();
     }
 
+
+    public void delete(String email) {
+        dao.deleteByEmail(email);
+    }
+
     public Result<User> update(String email, String username, String password, Integer role) {
         if (StringUtil.isNullOrEmpty(email)) {
             return new Result<>("Email required");
