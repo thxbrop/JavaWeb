@@ -31,7 +31,7 @@
                     </li>
                     <%if (result.t != null && result.t.getRole() == User.ROLE_DEFAULT) {%>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">考试系统</a>
+                        <a class="nav-link" href="html/exam.jsp">考试系统</a>
                     </li>
                     <%} else if (result.t != null && result.t.getRole() == User.ROLE_ADMIN) {%>
                     <li class="nav-item">

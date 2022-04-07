@@ -101,13 +101,16 @@
 
                         </div>
                         <div class="tab-pane fade" id="list-profile" role="tabpanel"
-                             aria-labelledby="list-profile-list">...
+                             aria-labelledby="list-profile-list">
+                            <div class="alert alert-warning mt-2" role="alert">这里还没有内容...</div>
                         </div>
                         <div class="tab-pane fade" id="list-messages" role="tabpanel"
-                             aria-labelledby="list-messages-list">...
+                             aria-labelledby="list-messages-list">
+                            <div class="alert alert-warning mt-2" role="alert">这里还没有内容...</div>
                         </div>
                         <div class="tab-pane fade" id="list-settings" role="tabpanel"
-                             aria-labelledby="list-settings-list">...
+                             aria-labelledby="list-settings-list">
+                            <div class="alert alert-warning mt-2" role="alert">这里还没有内容...</div>
                         </div>
                     </div>
                 </div>
