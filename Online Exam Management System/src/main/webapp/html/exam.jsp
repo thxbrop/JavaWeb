@@ -38,26 +38,26 @@
                     </p>
                     <div class="card-body">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-a">
-                            <label class="form-check-label" for="selection-a">
+                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-a-${task.getId()}">
+                            <label class="form-check-label" for="selection-a-${task.getId()}">
                                 <c:out value="${task.getSelections().a}"/>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-b">
-                            <label class="form-check-label" for="selection-b">
+                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-b-${task.getId()}">
+                            <label class="form-check-label" for="selection-b-${task.getId()}">
                                 <c:out value="${task.getSelections().b}"/>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-c">
-                            <label class="form-check-label" for="selection-c">
+                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-c-${task.getId()}">
+                            <label class="form-check-label" for="selection-c-${task.getId()}">
                                 <c:out value="${task.getSelections().c}"/>
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-d">
-                            <label class="form-check-label" for="selection-d">
+                            <input class="form-check-input" type="radio" name="task-${task.getId()}" id="selection-d-${task.getId()}">
+                            <label class="form-check-label" for="selection-d-${task.getId()}">
                                 <c:out value="${task.getSelections().d}"/>
                             </label>
                         </div>
