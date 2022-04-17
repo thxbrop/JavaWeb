@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -11,20 +12,25 @@ import java.util.Properties;
  */
 public class AppDataBase {
 
-    private AppDataBase() {
+    private static DataSource dataSource;
 
+    private AppDataBase() {
     }
 
     public static Connection getConnection() {
-        Connection connection = null;
-        Properties properties = new Properties();
-        try {
-            properties.load(AppDataBase.class.getClassLoader().getResourceAsStream("application.properties"));
-            DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
-            connection = dataSource.getConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (dataSource == null) {
+            Properties properties = new Properties();
+            try {
+                properties.load(AppDataBase.class.getClassLoader().getResourceAsStream("application.properties"));
+                dataSource = DruidDataSourceFactory.createDataSource(properties);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return connection;
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
