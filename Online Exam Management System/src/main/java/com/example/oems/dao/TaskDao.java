@@ -39,6 +39,16 @@ public class TaskDao implements BaseDao<Task> {
         }
     }
 
+
+    public void delete(int taskId) {
+        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM task WHERE id = ?")) {
+            statement.setInt(1, taskId);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Deprecated
     @Override
     public Task getById(int id) {

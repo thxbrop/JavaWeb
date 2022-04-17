@@ -1,4 +1,4 @@
-package com.example.oems.servlet;
+package com.example.oems.servlet.user;
 
 import com.example.oems.Result;
 import com.example.oems.entity.User;
@@ -13,19 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/register")
+@WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_USERNAME = "username";
-
-    private UserRepository repository;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        repository = UserRepository.getInstance();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -33,6 +25,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter(KEY_PASSWORD);
         String username = request.getParameter(KEY_USERNAME);
         PrintWriter writer = response.getWriter();
+        UserRepository repository = UserRepository.getInstance();
         Result<User> result;
         if (StringUtil.isNullOrEmpty(username)) {
             result = repository.register(email, password);

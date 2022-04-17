@@ -1,4 +1,4 @@
-package com.example.oems.servlet;
+package com.example.oems.servlet.user;
 
 import com.example.oems.Result;
 import com.example.oems.entity.User;
@@ -11,24 +11,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Objects;
 
-@WebServlet(name = "ProxyServlet", value = "/proxy")
-public class ProxyServlet extends HttpServlet {
+@WebServlet(name = "ProfileServlet", value = "/profile")
+public class ProfileServlet extends HttpServlet {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_ROLE = "role";
 
-    private UserRepository repository;
-
     @Override
-    public void init() throws ServletException {
-        super.init();
-        repository = UserRepository.getInstance();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String email = request.getParameter(KEY_EMAIL);
         String username = request.getParameter(KEY_USERNAME);
         String password = request.getParameter(KEY_PASSWORD);
@@ -38,12 +31,9 @@ public class ProxyServlet extends HttpServlet {
         } catch (Exception ignored) {
         }
 
+        UserRepository repository = UserRepository.getInstance();
         PrintWriter writer = response.getWriter();
         Result<User> result = repository.update(email, username, password, role);
-        if (result.message != null) {
-            writer.append(result.message);
-        } else {
-            writer.append("success");
-        }
+        writer.append(Objects.requireNonNullElse(result.message, "success"));
     }
 }

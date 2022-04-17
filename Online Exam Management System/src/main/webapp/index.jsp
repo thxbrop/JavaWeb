@@ -41,7 +41,7 @@
                 </ul>
                 <div class="align-content-end">
                     <%if (result.t != null && result.t.getPassword().equals(password)) {%>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/html/proxy.jsp">个人中心</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/html/profiles.jsp">个人中心</a>
                     <%} else {%>
                     <button class="btn btn-primary" id="register" type="button" data-bs-target="#model-register"
                             data-bs-toggle="modal">注册

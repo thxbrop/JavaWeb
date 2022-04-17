@@ -15,20 +15,15 @@ import java.util.List;
 
 @WebServlet(name = "RandomServlet", value = "/task/random")
 public class RandomServlet extends HttpServlet {
-    private TaskRepository repository;
     private static final String KEY_LIMIT = "limit";
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        repository = TaskRepository.getInstance();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int limit = Integer.parseInt(request.getParameter(KEY_LIMIT));
+        TaskRepository repository = TaskRepository.getInstance();
         Result<List<Task>> result = repository.random(limit, true);
         PrintWriter writer = response.getWriter();
+        repository.close();
         if (result.t != null) {
             request.getSession().setAttribute("tasks", result.t);
             writer.append("success");

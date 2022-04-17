@@ -5,21 +5,30 @@ import com.example.oems.dao.TaskDao;
 import com.example.oems.db.AppDataBase;
 import com.example.oems.entity.Task;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 public class TaskRepository {
+    private static Connection connection = null;
     private final TaskDao dao;
 
     private TaskRepository() {
-        dao = new TaskDao(AppDataBase.getConnection());
+        connection = AppDataBase.getConnection();
+        dao = new TaskDao(connection);
     }
 
-    private static TaskRepository INSTANCE = null;
-
     public static TaskRepository getInstance() {
-        if (INSTANCE == null) INSTANCE = new TaskRepository();
-        return INSTANCE;
+        return new TaskRepository();
+    }
+
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveTask(Task... tasks) {
@@ -30,13 +39,16 @@ public class TaskRepository {
         Arrays.stream(tasks).forEach(dao::delete);
     }
 
+    public void deleteTask(int... taskIds) {
+        Arrays.stream(taskIds).forEach(dao::delete);
+    }
+
 
     /**
      * Only for administrator
      *
      * @param count 每页个数
      * @param page  当前页数 从0开始
-     * @return
      */
     public List<Task> getAll(int count, int page) {
         List<Task> list = dao.getAll(false);

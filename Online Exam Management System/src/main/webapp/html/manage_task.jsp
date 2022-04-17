@@ -27,15 +27,14 @@
             </tr>
             </thead>
             <tbody>
-            <div class="alert alert-danger" role="alert">
-                分页展示题库试题功能还未完成
-            </div>
-            <c:forEach items="${sessionScope.tasks}" var="task">
+            <c:forEach items="${sessionScope.tasksAll}" var="task">
                 <tr>
                     <td scope="row" class="text-center"><c:out value="${task.getId()}"/></td>
-                    <td><c:out value="${task.getDescription()}"/></td>
+                    <td><h6 class="h6">
+                        <c:out value="${task.getDescription()}"/>
+                    </h6></td>
                     <td class="d-grid gap-2">
-                        <button class="btn btn-danger text-center">
+                        <button class="btn btn-danger text-center item-delete" id="${task.getId()}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
@@ -120,23 +119,6 @@
     </body>
 
     <script>
-        function getTasksByPage(page, count = 5) {
-            $.get(
-                "${pageContext.request.contextPath}/task/all", {
-                    "page": page,
-                    "count": count
-                }, function (data) {
-                    if (data === "success") {
-                        location.reload()
-                    }
-                }
-            )
-        }
-
-        // $("#s-1").click(function (e) {
-        //     const page = parseInt($(e.target).innerText) - 1
-        //     getTasksByPage(page)
-        // })
 
         $("#btn-create").click(function () {
             createTask(
@@ -146,6 +128,18 @@
                 $("#input-create-c").val(),
                 $("#input-create-d").val(),
                 $("option:selected").val()
+            )
+        })
+        $(".item-delete").click(function () {
+            const id = $(this).attr("id")
+            $.get(
+                "${pageContext.request.contextPath}/task/delete", {
+                    "id": id
+                }, function (data) {
+                    if (data === "success") {
+                        location.reload()
+                    }
+                }
             )
         })
 
@@ -176,6 +170,23 @@
 
             alertPlaceholder.append(wrapper)
         }
+
+        function getTasksByPage(page, count = 5) {
+            $.get(
+                "${pageContext.request.contextPath}/task/all", {
+                    "page": page,
+                    "count": count
+                }, function (data) {
+                    if (data === "success") {
+                        window.location.reload()
+                    }
+                }
+            )
+        }
+
+        <%if (request.getSession().getAttribute("tasksAll") == null){%>
+        getTasksByPage(0)
+        <%}%>
 
     </script>
 </html>

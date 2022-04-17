@@ -160,7 +160,7 @@
 
         function saveProxy(email, username, role) {
             $.get(
-                "${pageContext.request.contextPath}/proxy", {
+                "${pageContext.request.contextPath}/profile", {
                     "email": email,
                     "username": username,
                     "role": role

@@ -5,6 +5,7 @@
       <option name="customHeaders">
         <set>
           <option value="refresh" />
+          <option value="GET localhost" />
         </set>
       </option>
     </inspection_tool>

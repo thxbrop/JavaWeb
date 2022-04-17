@@ -1,29 +1,29 @@
 package com.example.oems.db;
 
-import com.example.oems.Config;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * 管理数据库连接
  */
 public class AppDataBase {
+
     private AppDataBase() {
 
     }
 
-    private static Connection connection = null;
-
     public static Connection getConnection() {
-        if (connection == null) {
-            try {
-                Class.forName(Config.JDBC_DRIVER);
-                connection = DriverManager.getConnection(Config.DB_URL, Config.DB_USER, Config.DB_PASSWORD);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-            }
+        Connection connection = null;
+        Properties properties = new Properties();
+        try {
+            properties.load(AppDataBase.class.getClassLoader().getResourceAsStream("application.properties"));
+            DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
+            connection = dataSource.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return connection;
     }

@@ -1,12 +1,6 @@
 <%@ page import="com.example.oems.repository.UserRepository" %>
 <%@ page import="com.example.oems.entity.User" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: qq277
-  Date: 2022/4/6
-  Time: 14:39
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -34,37 +28,7 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="list-home" role="tabpanel"
                              aria-labelledby="list-home-list">
-                            <table class="table table-bordered table-light table-hover">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Password</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                    UserRepository repository = UserRepository.getInstance();
-                                    List<User> list = repository.getAll();
-                                    for (User user : list) {
-                                %>
-                                <tr>
-                                    <td scope="row"><%=user.getId()%>
-                                    </td>
-                                    <td><%=user.getEmail()%>
-                                    </td>
-                                    <td><%=user.getUsername()%>
-                                    </td>
-                                    <td><%=user.getPassword()%>
-                                    </td>
-                                </tr>
-                                <%
-                                    }
-                                %>
-
-                                </tbody>
-                            </table>
+                            <%@ include file="manage_user.jsp" %>
                         </div>
                         <div class="tab-pane fade" id="list-profile" role="tabpanel"
                              aria-labelledby="list-profile-list">

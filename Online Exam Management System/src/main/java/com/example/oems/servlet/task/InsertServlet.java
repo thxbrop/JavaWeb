@@ -20,22 +20,15 @@ public class InsertServlet extends HttpServlet {
     private static final String KEY_D = "d";
     private static final String KEY_CORRECT = "correct";
 
-    private TaskRepository repository;
-
     @Override
-    public void init() throws ServletException {
-        super.init();
-        repository = TaskRepository.getInstance();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String description = request.getParameter(KEY_DESCRIPTION);
         String a = request.getParameter(KEY_A);
         String b = request.getParameter(KEY_B);
         String c = request.getParameter(KEY_C);
         String d = request.getParameter(KEY_D);
         int correct = Integer.parseInt(request.getParameter(KEY_CORRECT));
+        TaskRepository repository = TaskRepository.getInstance();
         repository.saveTask(
                 new Task(
                         description,
@@ -43,6 +36,7 @@ public class InsertServlet extends HttpServlet {
                         correct
                 )
         );
+        repository.close();
         response.getWriter().append("success");
     }
 }

@@ -19,20 +19,15 @@ import java.util.List;
 public class LoadAllServlet extends HttpServlet {
     private static final String KEY_PAGE = "page";
     private static final String KEY_COUNT = "count";
-    private TaskRepository repository;
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-        repository = TaskRepository.getInstance();
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int count = Integer.parseInt(request.getParameter(KEY_COUNT));
         int page = Integer.parseInt(request.getParameter(KEY_PAGE));
+        TaskRepository repository = TaskRepository.getInstance();
         List<Task> list = repository.getAll(count, page);
-        request.getSession().setAttribute("tasks", list);
+        request.getSession().setAttribute("tasksAll", list);
+        repository.close();
         response.getWriter().append("success");
     }
 }

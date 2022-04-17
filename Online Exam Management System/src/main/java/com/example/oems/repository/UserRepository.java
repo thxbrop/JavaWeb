@@ -6,25 +6,40 @@ import com.example.oems.db.AppDataBase;
 import com.example.oems.entity.User;
 import com.example.oems.util.StringUtil;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  * 处理用户相关业务
  */
 public class UserRepository {
+    private static UserRepository INSTANCE = null;
+    private static Connection connection;
     private final UserDao dao;
 
     private UserRepository() {
-        dao = new UserDao(AppDataBase.getConnection());
+        dao = new UserDao(connection);
     }
 
-    private static UserRepository INSTANCE = null;
-
     public static UserRepository getInstance() {
+        if (connection == null) {
+            connection = AppDataBase.getConnection();
+        }
         if (INSTANCE == null) {
             INSTANCE = new UserRepository();
         }
         return INSTANCE;
+    }
+
+    public void close() {
+        try {
+            connection.close();
+            INSTANCE = null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        connection = null;
     }
 
     /**
