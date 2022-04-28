@@ -1,14 +1,13 @@
 package com.example.oems.entity;
 
 public class User {
+    public static final int ROLE_DEFAULT = 1;
+    public static final int ROLE_ADMIN = 2;
     private int id;
     private String email;
     private String password;
     private String username;
     private int role;
-
-    public static final int ROLE_DEFAULT = 1;
-    public static final int ROLE_ADMIN = 2;
 
     public User(String email, String password, String username, int role) {
         this.email = email;

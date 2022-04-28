@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequestWrapper;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-public class CharacterRequest extends HttpServletRequestWrapper {
+public class EncodingRequest extends HttpServletRequestWrapper {
     private boolean isEncoded = false;
 
     /**
@@ -15,13 +15,14 @@ public class CharacterRequest extends HttpServletRequestWrapper {
      * @param request the {@link HttpServletRequest} to be wrapped.
      * @throws IllegalArgumentException if the request is null
      */
-    public CharacterRequest(HttpServletRequest request) {
+    public EncodingRequest(HttpServletRequest request) {
         super(request);
     }
 
     @Override
     public String getParameter(String name) {
-        return getParameterMap().get(name)[0];
+        String[] strings = getParameterMap().get(name);
+        return strings == null ? null : strings[0];
     }
 
     @Override
