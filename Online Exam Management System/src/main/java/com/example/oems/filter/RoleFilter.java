@@ -36,6 +36,8 @@ public class RoleFilter implements Filter {
         if (Arrays.asList(OPEN_LINKS).contains(uri)) {
             chain.doFilter(req, resp);
             Logger.t(TAG, "访问被允许");
+        } else if (uri.endsWith(".js") || uri.endsWith(".css")) {
+            chain.doFilter(req, resp);
         } else {
             String email = CookieUtil.getCookie(request, "email");
             String password = CookieUtil.getCookie(request, "password");
@@ -53,13 +55,11 @@ public class RoleFilter implements Filter {
             Logger.et(TAG, "访问被禁止");
             request.getRequestDispatcher("/html/forbid.jsp").forward(req, resp);
         }
-
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
-
     }
 
     @Override

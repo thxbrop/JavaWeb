@@ -1,5 +1,6 @@
 package com.example.oems;
 
+import java.io.CharArrayWriter;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
@@ -37,5 +38,10 @@ public class Logger {
 
     private static String currentTime() {
         return format.format(System.currentTimeMillis());
+    }
+
+    public static void main(String[] args) {
+        CharArrayWriter writer = new CharArrayWriter().append("你哈");
+        System.out.println(writer.toString());
     }
 }
